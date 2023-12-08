@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <math.h>
+
+// ฟังก์ชันแปลงเลขฐาน 10 เป็นเลขฐาน 2
+long long decimalToBinary(int decimal) {
+    long long binary = 0;
+    int digit = 0;
+
+    while (decimal != 0) {
+        int remainder = decimal % 2;
+        binary += remainder * pow(10, digit);
+        decimal /= 2;
+        digit++;
+    }
+
+    return binary;
+}
+
+// ฟังก์ชันแปลงเลขฐาน 2 เป็นเลขฐาน 10
+int binaryToDecimal(long long binary) {
+    int decimal = 0;
+    int exponent = 0;
+
+    while (binary != 0) {
+        int remainder = binary % 10;
+        decimal += remainder * pow(2, exponent);
+        binary /= 10;
+        exponent++;
+    }
+
+    return decimal;
+}
+
+// ฟังก์ชันแปลงเลขฐานสิบ ASCII เป็นตัวอักษร 0-1, A-Z หรือ a-z
+char asciiToChar(int ascii) {
+    if (ascii >= 48 && ascii <= 57) {
+        return (char)(ascii - 48 + '0'); // แปลงเป็นตัวเลข 0-9
+    } else if (ascii >= 65 && ascii <= 90) {
+        return (char)(ascii - 65 + 'A'); // แปลงเป็นตัวอักษร A-Z
+    } else if (ascii >= 97 && ascii <= 122) {
+        return (char)(ascii - 97 + 'a'); // แปลงเป็นตัวอักษร a-z
+    } else {
+        return '\0'; // ค่าไม่ถูกต้อง
+    }
+}
+
+int main() {
+    int decimalNumber = 23;
+    long long binaryNumber = decimalToBinary(decimalNumber);
+    printf("Decimal to Binary: %lld\n", binaryNumber);
+
+    long long binaryInput = 10110;
+    int decimalInput = binaryToDecimal(binaryInput);
+    printf("Binary to Decimal: %d\n", decimalInput);
+
+    int asciiInput = 65;
+    char charOutput = asciiToChar(asciiInput);
+    printf("ASCII to Character: %c\n", charOutput);
+
+    return 0;
+}
